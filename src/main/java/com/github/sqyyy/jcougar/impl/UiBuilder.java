@@ -1,9 +1,19 @@
 package com.github.sqyyy.jcougar.impl;
 
+import com.github.sqyyy.jcougar.Callback;
 import com.github.sqyyy.jcougar.Panel;
+import com.github.sqyyy.jcougar.Slot;
+import com.github.sqyyy.jcougar.impl.panel.CloseEventPanel;
+import com.github.sqyyy.jcougar.impl.panel.FillPanel;
+import com.github.sqyyy.jcougar.impl.panel.FrameFillPanel;
+import com.github.sqyyy.jcougar.impl.panel.OpenEventPanel;
+import com.github.sqyyy.jcougar.impl.panel.SingleSlotFillPanel;
 import net.kyori.adventure.text.Component;
 import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.Range;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +21,10 @@ import java.util.Objects;
 
 public class UiBuilder {
     public static class PaperUiBuilder {
+        private final List<List<Panel>> panels;
         private Component title;
         private InventoryType type;
         private int rows;
-        private List<List<Panel>> panels;
 
         public PaperUiBuilder() {
             this.title = Component.empty();
@@ -26,12 +36,12 @@ public class UiBuilder {
             }
         }
 
-        public PaperUiBuilder title(@NotNull Component title) {
+        public @NotNull PaperUiBuilder title(@NotNull Component title) {
             this.title = Objects.requireNonNull(title);
             return this;
         }
 
-        public PaperUiBuilder type(@NotNull InventoryType type) {
+        public @NotNull PaperUiBuilder type(@NotNull InventoryType type) {
             this.type = Objects.requireNonNull(type);
             this.rows = switch (type) {
                 case CHEST -> Math.min(6, Math.max(1, this.rows));
@@ -42,7 +52,7 @@ public class UiBuilder {
             return this;
         }
 
-        public PaperUiBuilder rows(int rows) {
+        public @NotNull PaperUiBuilder rows(int rows) {
             switch (this.type) {
                 case CHEST -> {
                     if (rows > 6 || rows < 1) {
@@ -65,7 +75,91 @@ public class UiBuilder {
             return this;
         }
 
-        public PaperUi build() {
+        public @NotNull PaperUiBuilder fill(@Range(from = 0, to = 15) int priority, @NotNull Slot from, @NotNull Slot to,
+            @Nullable ItemStack fillItem) {
+            Objects.checkIndex(priority, 16);
+            Objects.requireNonNull(from);
+            Objects.requireNonNull(to);
+            this.panels.get(priority).add(switch (this.type) {
+                case CHEST -> new FillPanel(from.chestSlot, to.chestSlot, 9, fillItem);
+                case DISPENSER, DROPPER -> new FillPanel(from.dispenserSlot, to.dispenserSlot, 3, fillItem);
+                case HOPPER -> new FillPanel(from.hopperSlot, to.hopperSlot, 5, fillItem);
+                default -> throw new IllegalArgumentException("Unsupported InventoryType was provided");
+            });
+            return this;
+        }
+
+        public @NotNull PaperUiBuilder frame(@Range(from = 0, to = 15) int priority, @NotNull Slot from, @NotNull Slot to,
+            @Nullable ItemStack fillItem) {
+            Objects.checkIndex(priority, 16);
+            Objects.requireNonNull(from);
+            Objects.requireNonNull(to);
+            this.panels.get(priority).add(switch (this.type) {
+                case CHEST -> new FrameFillPanel(from.chestSlot, to.chestSlot, 9, fillItem);
+                case DISPENSER, DROPPER -> new FrameFillPanel(from.dispenserSlot, to.dispenserSlot, 3, fillItem);
+                case HOPPER -> new FrameFillPanel(from.hopperSlot, to.hopperSlot, 5, fillItem);
+                default -> throw new IllegalArgumentException("Unsupported InventoryType was provided");
+            });
+            return this;
+        }
+
+        public @NotNull PaperUiBuilder put(@Range(from = 0, to = 15) int priority, @NotNull Slot slot,
+            @Nullable ItemStack fillItem) {
+            Objects.checkIndex(priority, 16);
+            Objects.requireNonNull(slot);
+            this.panels.get(priority).add(switch (this.type) {
+                case CHEST -> new SingleSlotFillPanel(slot.chestSlot, fillItem);
+                case DISPENSER, DROPPER -> new SingleSlotFillPanel(slot.dispenserSlot, fillItem);
+                case HOPPER -> new SingleSlotFillPanel(slot.hopperSlot, fillItem);
+                default -> throw new IllegalArgumentException("Unsupported InventoryType was provided");
+            });
+            return this;
+        }
+
+        public @NotNull PaperUiBuilder onOpen(@NotNull Callback.Open openCallback) {
+            Objects.requireNonNull(openCallback);
+            return this.onOpen(0, openCallback);
+        }
+
+        public @NotNull PaperUiBuilder onOpen(@Range(from = 0, to = 15) int priority, @NotNull Callback.Open openCallback) {
+
+            Objects.checkIndex(priority, 16);
+            Objects.requireNonNull(openCallback);
+            this.panels.get(priority).add(new OpenEventPanel(openCallback));
+            return this;
+        }
+
+        public @NotNull PaperUiBuilder onClose(@NotNull Callback.Close closeCallback) {
+            Objects.requireNonNull(closeCallback);
+            return this.onClose(0, closeCallback);
+        }
+
+        public @NotNull PaperUiBuilder onClose(@Range(from = 0, to = 15) int priority, @NotNull Callback.Close closeCallback) {
+            Objects.checkIndex(priority, 16);
+            Objects.requireNonNull(closeCallback);
+            this.panels.get(priority).add(new CloseEventPanel(closeCallback));
+            return this;
+        }
+
+        public @NotNull PaperUiBuilder addPanels(@NotNull List<List<Panel>> panels) {
+            Objects.requireNonNull(panels);
+            for (int i = 0; i < panels.size(); i++) {
+                if (this.panels.size() <= i) {
+                    break;
+                }
+                this.panels.get(i).addAll(Objects.requireNonNull(panels.get(i)));
+            }
+            return this;
+        }
+
+        public @NotNull PaperUiBuilder addPanel(@Range(from = 0, to = 15) int priority, @NotNull Panel panel) {
+            Objects.checkIndex(priority, 16);
+            Objects.requireNonNull(panel);
+            this.panels.get(priority).add(panel);
+            return this;
+        }
+
+        public @NotNull PaperUi build() {
             if (this.type == InventoryType.CHEST) {
                 return new PaperUi(this.title, this.rows, this.panels);
             }
