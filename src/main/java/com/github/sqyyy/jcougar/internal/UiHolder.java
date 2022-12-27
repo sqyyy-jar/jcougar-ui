@@ -35,21 +35,21 @@ public class UiHolder implements InventoryHolder {
         this.inventory = Objects.requireNonNull(inventory);
     }
 
-    public void onClose(InventoryCloseEvent event) {
+    public void onClose(@NotNull InventoryCloseEvent event) {
         this.ui.close((Player) event.getPlayer(), event.getView(), event.getReason());
     }
 
-    public void onDrag(InventoryDragEvent event) {
+    public void onDrag(@NotNull InventoryDragEvent event) {
         if (event.getRawSlots().stream().anyMatch(it -> it < this.ui.getSlots() && !this.ui.canPlace(it))) {
             event.setCancelled(true);
             return;
         }
-        event.setCancelled(this.ui.placeMany(event.getWhoClicked().getKiller(), event.getView(),
+        event.setCancelled(this.ui.placeMany((Player) event.getWhoClicked(), event.getView(),
             event.getNewItems().entrySet().stream().filter(it -> it.getKey() < this.ui.getSlots())
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue))));
     }
 
-    public void onClick(InventoryClickEvent event, boolean creative) {
+    public void onClick(@NotNull InventoryClickEvent event, boolean creative) {
         if (this.inventory == null) {
             throw new IllegalStateException("No inventory set");
         }
