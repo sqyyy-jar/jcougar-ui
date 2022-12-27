@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 public class OpenEventPanel implements Panel {
     private final Callback openCallback;
 
-    public OpenEventPanel(Callback openCallback) {
+    public OpenEventPanel(@NotNull Callback openCallback) {
         this.openCallback = openCallback;
     }
 

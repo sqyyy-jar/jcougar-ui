@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class FrameFillPanel implements Panel {
     private final int rowWidth;
@@ -15,7 +16,7 @@ public class FrameFillPanel implements Panel {
     private final int endRow;
     private final int endColumn;
 
-    public FrameFillPanel(int startSlot, int endSlot, int rowWidth, ItemStack fillItem) {
+    public FrameFillPanel(int startSlot, int endSlot, int rowWidth, @Nullable ItemStack fillItem) {
         this.rowWidth = rowWidth;
         this.fillItem = fillItem;
         this.startRow = Slot.getRow(this.rowWidth, startSlot);

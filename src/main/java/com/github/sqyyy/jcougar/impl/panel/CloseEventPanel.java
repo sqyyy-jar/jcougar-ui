@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 public class CloseEventPanel implements Panel {
     private final Callback closeCallback;
 
-    public CloseEventPanel(Callback closeCallback) {
+    public CloseEventPanel(@NotNull Callback closeCallback) {
         this.closeCallback = closeCallback;
     }
 
