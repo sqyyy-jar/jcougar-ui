@@ -96,8 +96,9 @@ public class UiHolder implements InventoryHolder {
                     }
                     return;
                 }
-                event.setCancelled(
-                    this.ui.replace((Player) event.getWhoClicked(), event.getView(), slot, event.getCurrentItem()));
+                // TODO - nullability
+                event.setCancelled(this.ui.replace((Player) event.getWhoClicked(), event.getView(), slot,
+                    Objects.requireNonNull(event.getCurrentItem())));
             }
             case HOTBAR_SWAP -> {
                 if (!uiClick) {
@@ -113,8 +114,9 @@ public class UiHolder implements InventoryHolder {
                         return;
                     }
                     if (event.getCurrentItem() == null) {
+                        // TODO - nullability
                         event.setCancelled(this.ui.place((Player) event.getWhoClicked(), event.getView(), slot,
-                            event.getWhoClicked().getInventory().getItem(event.getHotbarButton())));
+                            Objects.requireNonNull(event.getWhoClicked().getInventory().getItem(event.getHotbarButton()))));
                         return;
                     }
                     event.setCancelled(this.ui.take((Player) event.getWhoClicked(), event.getView(), slot));
