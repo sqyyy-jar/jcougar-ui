@@ -1,5 +1,6 @@
 package com.github.sqyyy.jcougar.impl.panel;
 
+import com.github.sqyyy.jcougar.Callback;
 import com.github.sqyyy.jcougar.Panel;
 import com.github.sqyyy.jcougar.Slot;
 import org.bukkit.entity.Player;
@@ -8,13 +9,13 @@ import org.jetbrains.annotations.NotNull;
 
 public class ClickPanel implements Panel {
     private final int rowWidth;
-    private final Callback clickCallback;
+    private final Callback.Click clickCallback;
     private final int startRow;
     private final int startColumn;
     private final int endRow;
     private final int endColumn;
 
-    public ClickPanel(int startSlot, int endSlot, int rowWidth, @NotNull Callback clickCallback) {
+    public ClickPanel(int startSlot, int endSlot, int rowWidth, @NotNull Callback.Click clickCallback) {
         this.rowWidth = rowWidth;
         this.clickCallback = clickCallback;
         this.startRow = Slot.getRow(this.rowWidth, startSlot);
@@ -48,9 +49,5 @@ public class ClickPanel implements Panel {
     @Override
     public boolean canTake(int slot) {
         return false;
-    }
-
-    public interface Callback {
-        void click(@NotNull Player player, @NotNull InventoryView view, int slot);
     }
 }

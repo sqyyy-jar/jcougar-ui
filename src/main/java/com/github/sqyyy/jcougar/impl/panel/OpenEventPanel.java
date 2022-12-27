@@ -1,14 +1,15 @@
 package com.github.sqyyy.jcougar.impl.panel;
 
+import com.github.sqyyy.jcougar.Callback;
 import com.github.sqyyy.jcougar.Panel;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
 
 public class OpenEventPanel implements Panel {
-    private final Callback openCallback;
+    private final Callback.Open openCallback;
 
-    public OpenEventPanel(@NotNull Callback openCallback) {
+    public OpenEventPanel(@NotNull Callback.Open openCallback) {
         this.openCallback = openCallback;
     }
 
@@ -35,9 +36,5 @@ public class OpenEventPanel implements Panel {
     @Override
     public void open(@NotNull Player player, @NotNull Inventory inventory) {
         this.openCallback.open(player, inventory);
-    }
-
-    public interface Callback {
-        void open(@NotNull Player player, @NotNull Inventory inventory);
     }
 }
