@@ -34,5 +34,5 @@ public interface Ui {
 
     void open(@NotNull Player player);
 
-    void close(@NotNull Player player, @NotNull InventoryView view, @NotNull InventoryCloseEvent.Reason reason);
+    void close(@NotNull Player player, @NotNull InventoryView view, InventoryCloseEvent.@NotNull Reason reason);
 }

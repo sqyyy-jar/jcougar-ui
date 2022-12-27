@@ -40,6 +40,6 @@ public interface Panel {
     default void open(@NotNull Player player, @NotNull Inventory inventory) {
     }
 
-    default void close(@NotNull Player player, @NotNull InventoryView view, @NotNull InventoryCloseEvent.Reason reason) {
+    default void close(@NotNull Player player, @NotNull InventoryView view, InventoryCloseEvent.@NotNull Reason reason) {
     }
 }
