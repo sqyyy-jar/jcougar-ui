@@ -11,6 +11,10 @@ public interface Callback {
         void click(@NotNull Player player, @NotNull InventoryView view, int slot);
     }
 
+    interface Update extends Callback {
+        void update(@NotNull Player player, @NotNull InventoryView view);
+    }
+
     interface Open extends Callback {
         void open(@NotNull Player player, @NotNull Inventory inventory);
     }
