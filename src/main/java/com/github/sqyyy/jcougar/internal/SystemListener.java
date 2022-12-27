@@ -6,10 +6,11 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryCreativeEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
+import org.jetbrains.annotations.NotNull;
 
 public class SystemListener implements Listener {
     @EventHandler
-    public void onClose(InventoryCloseEvent event) {
+    public void onClose(@NotNull InventoryCloseEvent event) {
         final var holder = event.getView().getTopInventory().getHolder();
         if (holder instanceof UiHolder uiHolder) {
             uiHolder.onClose(event);
@@ -17,7 +18,7 @@ public class SystemListener implements Listener {
     }
 
     @EventHandler
-    public void onDrag(InventoryDragEvent event) {
+    public void onDrag(@NotNull InventoryDragEvent event) {
         final var holder = event.getView().getTopInventory().getHolder();
         if (holder instanceof UiHolder uiHolder) {
             uiHolder.onDrag(event);
@@ -25,7 +26,7 @@ public class SystemListener implements Listener {
     }
 
     @EventHandler
-    public void onClick(InventoryClickEvent event) {
+    public void onClick(@NotNull InventoryClickEvent event) {
         final var holder = event.getView().getTopInventory().getHolder();
         if (holder instanceof UiHolder uiHolder) {
             uiHolder.onClick(event, event instanceof InventoryCreativeEvent);

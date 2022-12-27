@@ -5,28 +5,29 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 
 public interface Panel {
     boolean collidesWith(int slot);
 
-    default void click(Player player, InventoryView view, int slot) {
+    default void click(@NotNull Player player, @NotNull InventoryView view, int slot) {
     }
 
-    default boolean place(Player player, InventoryView view, int slot, ItemStack item) {
+    default boolean place(@NotNull Player player, @NotNull InventoryView view, int slot, @NotNull ItemStack item) {
         return true;
     }
 
-    default boolean placeMany(Player player, InventoryView view, Map<Integer, ItemStack> items) {
+    default boolean placeMany(@NotNull Player player, @NotNull InventoryView view, @NotNull Map<Integer, ItemStack> items) {
         return true;
     }
 
-    default boolean take(Player player, InventoryView view, int slot) {
+    default boolean take(@NotNull Player player, @NotNull InventoryView view, int slot) {
         return true;
     }
 
-    default boolean replace(Player player, InventoryView view, int slot, ItemStack item) {
+    default boolean replace(@NotNull Player player, @NotNull InventoryView view, int slot, @NotNull ItemStack item) {
         return true;
     }
 
@@ -36,9 +37,9 @@ public interface Panel {
 
     boolean canTake(int slot);
 
-    default void open(Player player, Inventory inventory) {
+    default void open(@NotNull Player player, @NotNull Inventory inventory) {
     }
 
-    default void close(Player player, InventoryView view, InventoryCloseEvent.Reason reason) {
+    default void close(@NotNull Player player, @NotNull InventoryView view, @NotNull InventoryCloseEvent.Reason reason) {
     }
 }

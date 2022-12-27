@@ -5,25 +5,26 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 
 public interface Ui {
-    InventoryType getType();
+    @NotNull InventoryType getType();
 
     int getRows();
 
     int getSlots();
 
-    void click(Player player, InventoryView view, int slot);
+    void click(@NotNull Player player, @NotNull InventoryView view, int slot);
 
-    boolean place(Player player, InventoryView view, int slot, ItemStack item);
+    boolean place(@NotNull Player player, @NotNull InventoryView view, int slot, @NotNull ItemStack item);
 
-    boolean placeMany(Player player, InventoryView view, Map<Integer, ItemStack> items);
+    boolean placeMany(@NotNull Player player, @NotNull InventoryView view, @NotNull Map<Integer, ItemStack> items);
 
-    boolean take(Player player, InventoryView view, int slot);
+    boolean take(@NotNull Player player, @NotNull InventoryView view, int slot);
 
-    boolean replace(Player player, InventoryView view, int slot, ItemStack item);
+    boolean replace(@NotNull Player player, @NotNull InventoryView view, int slot, @NotNull ItemStack item);
 
     boolean canClick(int slot);
 
@@ -31,7 +32,7 @@ public interface Ui {
 
     boolean canTake(int slot);
 
-    void open(Player player);
+    void open(@NotNull Player player);
 
-    void close(Player player, InventoryView view, InventoryCloseEvent.Reason reason);
+    void close(@NotNull Player player, @NotNull InventoryView view, @NotNull InventoryCloseEvent.Reason reason);
 }

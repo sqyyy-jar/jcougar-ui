@@ -91,7 +91,7 @@ public class PaperUi implements Ui {
     }
 
     @Override
-    public InventoryType getType() {
+    public @NotNull InventoryType getType() {
         return this.type;
     }
 
@@ -106,7 +106,7 @@ public class PaperUi implements Ui {
     }
 
     @Override
-    public void click(Player player, InventoryView view, int slot) {
+    public void click(@NotNull Player player, @NotNull InventoryView view, int slot) {
         for (final var panelList : this.panels) {
             if (panelList == null) {
                 continue;
@@ -120,7 +120,7 @@ public class PaperUi implements Ui {
     }
 
     @Override
-    public boolean place(Player player, InventoryView view, int slot, ItemStack item) {
+    public boolean place(@NotNull Player player, @NotNull InventoryView view, int slot, @NotNull ItemStack item) {
         var res = false;
         for (final var panelList : this.panels) {
             if (panelList == null) {
@@ -136,7 +136,7 @@ public class PaperUi implements Ui {
     }
 
     @Override
-    public boolean placeMany(Player player, InventoryView view, Map<Integer, ItemStack> items) {
+    public boolean placeMany(@NotNull Player player, @NotNull InventoryView view, @NotNull Map<Integer, ItemStack> items) {
         var res = false;
         for (final var panelList : this.panels) {
             if (panelList == null) {
@@ -155,7 +155,7 @@ public class PaperUi implements Ui {
     }
 
     @Override
-    public boolean take(Player player, InventoryView view, int slot) {
+    public boolean take(@NotNull Player player, @NotNull InventoryView view, int slot) {
         var res = false;
         for (final var panelList : this.panels) {
             if (panelList == null) {
@@ -171,7 +171,7 @@ public class PaperUi implements Ui {
     }
 
     @Override
-    public boolean replace(Player player, InventoryView view, int slot, ItemStack item) {
+    public boolean replace(@NotNull Player player, @NotNull InventoryView view, int slot, @NotNull ItemStack item) {
         var res = false;
         for (final var panelList : this.panels) {
             if (panelList == null) {
@@ -202,7 +202,7 @@ public class PaperUi implements Ui {
     }
 
     @Override
-    public void open(Player player) {
+    public void open(@NotNull Player player) {
         final Inventory inventory;
         final var holder = new UiHolder(this);
         inventory = this.type == InventoryType.CHEST ? Bukkit.createInventory(holder, this.slots, this.title) :
@@ -220,7 +220,7 @@ public class PaperUi implements Ui {
     }
 
     @Override
-    public void close(Player player, InventoryView view, InventoryCloseEvent.Reason reason) {
+    public void close(@NotNull Player player, @NotNull InventoryView view, @NotNull InventoryCloseEvent.Reason reason) {
         for (final var panelList : this.panels) {
             if (panelList == null) {
                 continue;

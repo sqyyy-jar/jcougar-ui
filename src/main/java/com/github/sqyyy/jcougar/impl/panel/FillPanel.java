@@ -5,6 +5,7 @@ import com.github.sqyyy.jcougar.Slot;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class FillPanel implements Panel {
@@ -47,7 +48,7 @@ public class FillPanel implements Panel {
     }
 
     @Override
-    public void open(Player player, Inventory inventory) {
+    public void open(@NotNull Player player, @NotNull Inventory inventory) {
         for (var row = this.startRow; row <= this.endRow; row++) {
             for (var column = this.startColumn; column <= this.endColumn; column++) {
                 inventory.setItem(row * this.rowWidth + column, this.fillItem);
