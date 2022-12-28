@@ -32,6 +32,6 @@ public class TakeableSlotEventPanel extends AbstractSlotPanel {
 
     @Override
     public boolean canTake(int slot) {
-        return false;
+        return true;
     }
 }
