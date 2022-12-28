@@ -1,5 +1,6 @@
 package com.github.sqyyy.jcougar.internal;
 
+import com.github.sqyyy.jcougar.JCougar;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -15,7 +16,9 @@ public class SystemListener implements Listener {
             .getTopInventory()
             .getHolder();
         if (holder instanceof UiHolder uiHolder) {
+            JCougar.UnsafeValues.inventoryCloseEvent = event;
             uiHolder.onClose(event);
+            JCougar.UnsafeValues.inventoryCloseEvent = null;
         }
     }
 
@@ -25,7 +28,9 @@ public class SystemListener implements Listener {
             .getTopInventory()
             .getHolder();
         if (holder instanceof UiHolder uiHolder) {
+            JCougar.UnsafeValues.inventoryDragEvent = event;
             uiHolder.onDrag(event);
+            JCougar.UnsafeValues.inventoryDragEvent = null;
         }
     }
 
@@ -35,7 +40,9 @@ public class SystemListener implements Listener {
             .getTopInventory()
             .getHolder();
         if (holder instanceof UiHolder uiHolder) {
+            JCougar.UnsafeValues.inventoryClickEvent = event;
             uiHolder.onClick(event, event instanceof InventoryCreativeEvent);
+            JCougar.UnsafeValues.inventoryClickEvent = null;
         }
     }
 }
