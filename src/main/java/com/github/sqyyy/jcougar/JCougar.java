@@ -1,6 +1,9 @@
 package com.github.sqyyy.jcougar;
 
 import com.github.sqyyy.jcougar.internal.SystemListener;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -26,5 +29,14 @@ public final class JCougar {
         JCougar.plugin.getServer()
             .getScheduler()
             .runTask(JCougar.plugin, task);
+    }
+
+    public static final class UnsafeValues {
+        public static InventoryCloseEvent inventoryCloseEvent = null;
+        public static InventoryDragEvent inventoryDragEvent = null;
+        public static InventoryClickEvent inventoryClickEvent = null;
+
+        private UnsafeValues() {
+        }
     }
 }
