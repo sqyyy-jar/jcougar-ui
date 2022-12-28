@@ -5,7 +5,6 @@ import com.github.sqyyy.jcougar.JCougar;
 import com.github.sqyyy.jcougar.Panel;
 import com.github.sqyyy.jcougar.Slot;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
@@ -15,19 +14,14 @@ import java.util.Map;
 
 public class StoragePanel implements Panel {
     private final int rowWidth;
-    private final Callback.Open openCallback;
-    private final Callback.Close closeCallback;
     private final Callback.Update updateCallback;
     private final int startRow;
     private final int startColumn;
     private final int endRow;
     private final int endColumn;
 
-    public StoragePanel(int startSlot, int endSlot, int rowWidth, @NotNull Callback.Open openCallback,
-        @NotNull Callback.Close closeCallback, @NotNull Callback.Update updateCallback) {
+    public StoragePanel(int startSlot, int endSlot, int rowWidth, @NotNull Callback.Update updateCallback) {
         this.rowWidth = rowWidth;
-        this.openCallback = openCallback;
-        this.closeCallback = closeCallback;
         this.updateCallback = updateCallback;
         this.startRow = Slot.getRow(this.rowWidth, startSlot);
         this.startColumn = Slot.getColumn(this.rowWidth, startSlot);
@@ -73,12 +67,6 @@ public class StoragePanel implements Panel {
                 inventory.setItem(row * this.rowWidth + column, null);
             }
         }
-        this.openCallback.open(player, inventory);
-    }
-
-    @Override
-    public void close(@NotNull Player player, @NotNull InventoryView view, InventoryCloseEvent.@NotNull Reason reason) {
-        this.closeCallback.close(player, view, reason);
     }
 
     @Override
