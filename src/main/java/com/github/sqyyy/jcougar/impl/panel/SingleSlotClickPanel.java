@@ -1,23 +1,16 @@
 package com.github.sqyyy.jcougar.impl.panel;
 
 import com.github.sqyyy.jcougar.Callback;
-import com.github.sqyyy.jcougar.Panel;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.InventoryView;
 import org.jetbrains.annotations.NotNull;
 
-public class SingleSlotClickPanel implements Panel {
-    private final int slot;
+public class SingleSlotClickPanel extends AbstractSlotPanel {
     private final Callback.Click clickCallback;
 
     public SingleSlotClickPanel(int slot, @NotNull Callback.Click clickCallback) {
-        this.slot = slot;
+        super(slot);
         this.clickCallback = clickCallback;
-    }
-
-    @Override
-    public boolean collidesWith(int slot) {
-        return slot == this.slot;
     }
 
     @Override
