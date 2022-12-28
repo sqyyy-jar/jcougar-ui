@@ -5,10 +5,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.InventoryView;
 import org.jetbrains.annotations.NotNull;
 
-public class SingleSlotClickPanel extends AbstractSlotPanel {
+public class SlotClickEventPanel extends AbstractSlotPanel {
     private final Callback.Click clickCallback;
 
-    public SingleSlotClickPanel(int slot, @NotNull Callback.Click clickCallback) {
+    public SlotClickEventPanel(int slot, @NotNull Callback.Click clickCallback) {
         super(slot);
         this.clickCallback = clickCallback;
     }
