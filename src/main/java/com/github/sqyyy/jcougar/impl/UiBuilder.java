@@ -80,12 +80,13 @@ public class UiBuilder {
             Objects.checkIndex(priority, 16);
             Objects.requireNonNull(from);
             Objects.requireNonNull(to);
-            this.panels.get(priority).add(switch (this.type) {
-                case CHEST -> new FillPanel(from.chestSlot, to.chestSlot, 9, fillItem);
-                case DISPENSER, DROPPER -> new FillPanel(from.dispenserSlot, to.dispenserSlot, 3, fillItem);
-                case HOPPER -> new FillPanel(from.hopperSlot, to.hopperSlot, 5, fillItem);
-                default -> throw new IllegalArgumentException("Unsupported InventoryType was provided");
-            });
+            this.panels.get(priority)
+                .add(switch (this.type) {
+                    case CHEST -> new FillPanel(from.chestSlot, to.chestSlot, 9, fillItem);
+                    case DISPENSER, DROPPER -> new FillPanel(from.dispenserSlot, to.dispenserSlot, 3, fillItem);
+                    case HOPPER -> new FillPanel(from.hopperSlot, to.hopperSlot, 5, fillItem);
+                    default -> throw new IllegalArgumentException("Unsupported InventoryType was provided");
+                });
             return this;
         }
 
@@ -94,12 +95,13 @@ public class UiBuilder {
             Objects.checkIndex(priority, 16);
             Objects.requireNonNull(from);
             Objects.requireNonNull(to);
-            this.panels.get(priority).add(switch (this.type) {
-                case CHEST -> new FrameFillPanel(from.chestSlot, to.chestSlot, 9, fillItem);
-                case DISPENSER, DROPPER -> new FrameFillPanel(from.dispenserSlot, to.dispenserSlot, 3, fillItem);
-                case HOPPER -> new FrameFillPanel(from.hopperSlot, to.hopperSlot, 5, fillItem);
-                default -> throw new IllegalArgumentException("Unsupported InventoryType was provided");
-            });
+            this.panels.get(priority)
+                .add(switch (this.type) {
+                    case CHEST -> new FrameFillPanel(from.chestSlot, to.chestSlot, 9, fillItem);
+                    case DISPENSER, DROPPER -> new FrameFillPanel(from.dispenserSlot, to.dispenserSlot, 3, fillItem);
+                    case HOPPER -> new FrameFillPanel(from.hopperSlot, to.hopperSlot, 5, fillItem);
+                    default -> throw new IllegalArgumentException("Unsupported InventoryType was provided");
+                });
             return this;
         }
 
@@ -107,12 +109,13 @@ public class UiBuilder {
             @Nullable ItemStack fillItem) {
             Objects.checkIndex(priority, 16);
             Objects.requireNonNull(slot);
-            this.panels.get(priority).add(switch (this.type) {
-                case CHEST -> new SingleSlotFillPanel(slot.chestSlot, fillItem);
-                case DISPENSER, DROPPER -> new SingleSlotFillPanel(slot.dispenserSlot, fillItem);
-                case HOPPER -> new SingleSlotFillPanel(slot.hopperSlot, fillItem);
-                default -> throw new IllegalArgumentException("Unsupported InventoryType was provided");
-            });
+            this.panels.get(priority)
+                .add(switch (this.type) {
+                    case CHEST -> new SingleSlotFillPanel(slot.chestSlot, fillItem);
+                    case DISPENSER, DROPPER -> new SingleSlotFillPanel(slot.dispenserSlot, fillItem);
+                    case HOPPER -> new SingleSlotFillPanel(slot.hopperSlot, fillItem);
+                    default -> throw new IllegalArgumentException("Unsupported InventoryType was provided");
+                });
             return this;
         }
 
@@ -125,7 +128,8 @@ public class UiBuilder {
 
             Objects.checkIndex(priority, 16);
             Objects.requireNonNull(openCallback);
-            this.panels.get(priority).add(new OpenEventPanel(openCallback));
+            this.panels.get(priority)
+                .add(new OpenEventPanel(openCallback));
             return this;
         }
 
@@ -137,7 +141,8 @@ public class UiBuilder {
         public @NotNull PaperUiBuilder onClose(@Range(from = 0, to = 15) int priority, @NotNull Callback.Close closeCallback) {
             Objects.checkIndex(priority, 16);
             Objects.requireNonNull(closeCallback);
-            this.panels.get(priority).add(new CloseEventPanel(closeCallback));
+            this.panels.get(priority)
+                .add(new CloseEventPanel(closeCallback));
             return this;
         }
 
@@ -147,7 +152,8 @@ public class UiBuilder {
                 if (this.panels.size() <= i) {
                     break;
                 }
-                this.panels.get(i).addAll(Objects.requireNonNull(panels.get(i)));
+                this.panels.get(i)
+                    .addAll(Objects.requireNonNull(panels.get(i)));
             }
             return this;
         }
@@ -155,7 +161,8 @@ public class UiBuilder {
         public @NotNull PaperUiBuilder addPanel(@Range(from = 0, to = 15) int priority, @NotNull Panel panel) {
             Objects.checkIndex(priority, 16);
             Objects.requireNonNull(panel);
-            this.panels.get(priority).add(panel);
+            this.panels.get(priority)
+                .add(panel);
             return this;
         }
 

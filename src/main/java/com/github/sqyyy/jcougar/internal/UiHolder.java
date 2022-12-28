@@ -40,13 +40,17 @@ public class UiHolder implements InventoryHolder {
     }
 
     public void onDrag(@NotNull InventoryDragEvent event) {
-        if (event.getRawSlots().stream().anyMatch(it -> it < this.ui.getSlots() && !this.ui.canPlace(it))) {
+        if (event.getRawSlots()
+            .stream()
+            .anyMatch(it -> it < this.ui.getSlots() && !this.ui.canPlace(it))) {
             event.setCancelled(true);
             return;
         }
-        event.setCancelled(this.ui.placeMany((Player) event.getWhoClicked(), event.getView(),
-            event.getNewItems().entrySet().stream().filter(it -> it.getKey() < this.ui.getSlots())
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue))));
+        event.setCancelled(this.ui.placeMany((Player) event.getWhoClicked(), event.getView(), event.getNewItems()
+            .entrySet()
+            .stream()
+            .filter(it -> it.getKey() < this.ui.getSlots())
+            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue))));
     }
 
     public void onClick(@NotNull InventoryClickEvent event, boolean creative) {
@@ -104,7 +108,8 @@ public class UiHolder implements InventoryHolder {
                 if (!uiClick) {
                     return;
                 }
-                final var place = event.getCurrentItem() == null || event.getCurrentItem().getType() == Material.AIR;
+                final var place = event.getCurrentItem() == null || event.getCurrentItem()
+                    .getType() == Material.AIR;
                 if (place) {
                     if (!this.ui.canPlace(slot)) {
                         event.setCancelled(true);
@@ -116,7 +121,9 @@ public class UiHolder implements InventoryHolder {
                     if (event.getCurrentItem() == null) {
                         // TODO - nullability
                         event.setCancelled(this.ui.place((Player) event.getWhoClicked(), event.getView(), slot,
-                            Objects.requireNonNull(event.getWhoClicked().getInventory().getItem(event.getHotbarButton()))));
+                            Objects.requireNonNull(event.getWhoClicked()
+                                .getInventory()
+                                .getItem(event.getHotbarButton()))));
                         return;
                     }
                     event.setCancelled(this.ui.take((Player) event.getWhoClicked(), event.getView(), slot));
@@ -159,7 +166,9 @@ public class UiHolder implements InventoryHolder {
                     }
                     final var item = inventory.getItem(i);
                     if (item == null || item.getType() == Material.AIR) {
-                        event.getView().getBottomInventory().setItem(event.getSlot(), null);
+                        event.getView()
+                            .getBottomInventory()
+                            .setItem(event.getSlot(), null);
                         inventory.setItem(i, currentItem);
                         break;
                     }
@@ -170,7 +179,9 @@ public class UiHolder implements InventoryHolder {
                         final var max = 64 - item.getAmount();
                         if (max >= amount) {
                             item.setAmount(item.getAmount() + amount);
-                            event.getView().getBottomInventory().setItem(event.getSlot(), null);
+                            event.getView()
+                                .getBottomInventory()
+                                .setItem(event.getSlot(), null);
                             break;
                         }
                         amount -= max;

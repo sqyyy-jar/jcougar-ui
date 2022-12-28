@@ -11,7 +11,9 @@ import org.jetbrains.annotations.NotNull;
 public class SystemListener implements Listener {
     @EventHandler
     public void onClose(@NotNull InventoryCloseEvent event) {
-        final var holder = event.getView().getTopInventory().getHolder();
+        final var holder = event.getView()
+            .getTopInventory()
+            .getHolder();
         if (holder instanceof UiHolder uiHolder) {
             uiHolder.onClose(event);
         }
@@ -19,7 +21,9 @@ public class SystemListener implements Listener {
 
     @EventHandler
     public void onDrag(@NotNull InventoryDragEvent event) {
-        final var holder = event.getView().getTopInventory().getHolder();
+        final var holder = event.getView()
+            .getTopInventory()
+            .getHolder();
         if (holder instanceof UiHolder uiHolder) {
             uiHolder.onDrag(event);
         }
@@ -27,7 +31,9 @@ public class SystemListener implements Listener {
 
     @EventHandler
     public void onClick(@NotNull InventoryClickEvent event) {
-        final var holder = event.getView().getTopInventory().getHolder();
+        final var holder = event.getView()
+            .getTopInventory()
+            .getHolder();
         if (holder instanceof UiHolder uiHolder) {
             uiHolder.onClick(event, event instanceof InventoryCreativeEvent);
         }

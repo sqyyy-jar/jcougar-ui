@@ -13,7 +13,9 @@ public final class JCougar {
             throw new IllegalStateException("JCougar is already initialized");
         }
         JCougar.plugin = plugin;
-        plugin.getServer().getPluginManager().registerEvents(new SystemListener(), JCougar.plugin);
+        plugin.getServer()
+            .getPluginManager()
+            .registerEvents(new SystemListener(), JCougar.plugin);
         JCougar.initialized = true;
     }
 
@@ -21,6 +23,8 @@ public final class JCougar {
         if (JCougar.plugin == null) {
             throw new IllegalStateException("JCougar is not yet initialized");
         }
-        JCougar.plugin.getServer().getScheduler().runTask(JCougar.plugin, task);
+        JCougar.plugin.getServer()
+            .getScheduler()
+            .runTask(JCougar.plugin, task);
     }
 }

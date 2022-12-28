@@ -62,7 +62,8 @@ public class PaperUi implements Ui {
         this.rows = rows;
         this.slots = slots;
         this.panels = new List[16];
-        for (int i = 0; i < Objects.requireNonNull(panels).size(); i++) {
+        for (int i = 0; i < Objects.requireNonNull(panels)
+            .size(); i++) {
             if (this.panels.length <= i) {
                 break;
             }
