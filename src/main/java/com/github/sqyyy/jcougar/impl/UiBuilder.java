@@ -7,7 +7,7 @@ import com.github.sqyyy.jcougar.impl.panel.CloseEventPanel;
 import com.github.sqyyy.jcougar.impl.panel.FillPanel;
 import com.github.sqyyy.jcougar.impl.panel.FrameFillPanel;
 import com.github.sqyyy.jcougar.impl.panel.OpenEventPanel;
-import com.github.sqyyy.jcougar.impl.panel.SingleSlotFillPanel;
+import com.github.sqyyy.jcougar.impl.panel.SlotFillPanel;
 import net.kyori.adventure.text.Component;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
@@ -111,9 +111,9 @@ public class UiBuilder {
             Objects.requireNonNull(slot);
             this.panels.get(priority)
                 .add(switch (this.type) {
-                    case CHEST -> new SingleSlotFillPanel(slot.chestSlot, fillItem);
-                    case DISPENSER, DROPPER -> new SingleSlotFillPanel(slot.dispenserSlot, fillItem);
-                    case HOPPER -> new SingleSlotFillPanel(slot.hopperSlot, fillItem);
+                    case CHEST -> new SlotFillPanel(slot.chestSlot, fillItem);
+                    case DISPENSER, DROPPER -> new SlotFillPanel(slot.dispenserSlot, fillItem);
+                    case HOPPER -> new SlotFillPanel(slot.hopperSlot, fillItem);
                     default -> throw new IllegalArgumentException("Unsupported InventoryType was provided");
                 });
             return this;

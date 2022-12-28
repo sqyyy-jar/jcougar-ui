@@ -6,10 +6,10 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class SingleSlotFillPanel extends AbstractSlotPanel {
+public class SlotFillPanel extends AbstractSlotPanel {
     private final ItemStack fillItem;
 
-    public SingleSlotFillPanel(int slot, @Nullable ItemStack fillItem) {
+    public SlotFillPanel(int slot, @Nullable ItemStack fillItem) {
         super(slot);
         this.fillItem = fillItem;
     }
