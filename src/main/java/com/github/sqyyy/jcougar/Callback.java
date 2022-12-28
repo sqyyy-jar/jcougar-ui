@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 public interface Callback {
@@ -12,6 +13,20 @@ public interface Callback {
         };
 
         void click(@NotNull Player player, @NotNull InventoryView view, int slot);
+    }
+
+    interface Place extends Callback {
+        Place FALSE = (player, view, slot, item) -> false;
+        Place TRUE = (player, view, slot, item) -> true;
+
+        boolean take(@NotNull Player player, @NotNull InventoryView view, int slot, @NotNull ItemStack item);
+    }
+
+    interface Take extends Callback {
+        Take FALSE = (player, view, slot) -> false;
+        Take TRUE = (player, view, slot) -> true;
+
+        boolean take(@NotNull Player player, @NotNull InventoryView view, int slot);
     }
 
     interface Update extends Callback {
