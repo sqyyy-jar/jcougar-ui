@@ -169,8 +169,8 @@ public class UiHolder implements InventoryHolder {
                     if (currentItem.isSimilar(item)) {
                         final var max = 64 - item.getAmount();
                         if (max >= amount) {
+                            item.setAmount(item.getAmount() + amount);
                             event.getView().getBottomInventory().setItem(event.getSlot(), null);
-                            inventory.setItem(i, currentItem);
                             break;
                         }
                         amount -= max;
