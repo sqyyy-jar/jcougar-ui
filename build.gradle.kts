@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.github.sqyyy"
-version = "0.5.0-alpha"
+version = "0.5.1-alpha"
 
 configure<PublishingExtension> {
     repositories {
