@@ -170,6 +170,7 @@ public class UiHolder implements InventoryHolder {
                             .getBottomInventory()
                             .setItem(event.getSlot(), null);
                         inventory.setItem(i, currentItem);
+                        this.ui.place(((Player) event.getWhoClicked()), event.getView(), i, currentItem);
                         break;
                     }
                     if (item.getAmount() >= 64) {
@@ -182,11 +183,13 @@ public class UiHolder implements InventoryHolder {
                             event.getView()
                                 .getBottomInventory()
                                 .setItem(event.getSlot(), null);
+                            this.ui.place(((Player) event.getWhoClicked()), event.getView(), i, item);
                             break;
                         }
                         amount -= max;
                         item.setAmount(64);
                         currentItem.setAmount(amount);
+                        this.ui.place(((Player) event.getWhoClicked()), event.getView(), i, item);
                         break;
                     }
                 }
